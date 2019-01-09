@@ -51,7 +51,7 @@ class [[eosio::contract]] pokerrollcontract : public eosio::contract
 	_tb_nonces nonces;
 
 	[[eosio::action]]
-	void forceclear(const name from);
+	void forceclear(name from);
 
 	[[eosio::action]]
 	void pdreceipt(string game_id, const name player, string game, string seed, string bet_result,
@@ -64,6 +64,6 @@ class [[eosio::contract]] pokerrollcontract : public eosio::contract
 			std::string memo
 			);
 	
-	uint32_t increment_nonce(const name user);
+	uint32_t increment_nonce(name user);
 	void sanity_check(uint64_t code, name act);
 };

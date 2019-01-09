@@ -134,7 +134,7 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 	}
 }
 
-void pokerrollcontract::forceclear(const name from) {
+void pokerrollcontract::forceclear( name from) {
 	//need to change name in formal launch
 	require_auth(name("mevpokerroll"));
 
@@ -208,7 +208,7 @@ void pokerrollcontract::sanity_check(uint64_t code, name act)
 	}
 }
 
-uint32_t pokerrollcontract::increment_nonce(const name user)
+uint32_t pokerrollcontract::increment_nonce(name user)
 {
 	// Get current nonce and increment it
 	uint32_t nonce = 0;
