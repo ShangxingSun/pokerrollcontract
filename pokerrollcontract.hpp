@@ -24,7 +24,7 @@ CONTRACT pokerrollcontract : public eosio::contract
 	public:
 	pokerrollcontract(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds),nonces(_self, _self.value), pokerdicepools(_self, _self.value) {}
 
-	struct st_pdpool
+	struct [[eosio::table]] st_pdpool
 	{
 		name owner;
 		string betcurrency;
@@ -35,15 +35,13 @@ CONTRACT pokerrollcontract : public eosio::contract
 		string bet_value;
 
 		uint64_t primary_key() const { return owner.value; }
-		EOSLIB_SERIALIZE(st_pdpool, (owner)(nonce)(totalbet)(userseed)(bet_cards)(bet_value))
 	};
 
-	struct st_nonces{
+	struct [[eosio::table]] st_nonces{
 		name owner;
 		uint32_t number;
 
 		uint64_t primary_key() const { return owner.value; }
-		EOSLIB_SERIALIZE(st_nonces, (owner)(number))
 	};
 
 	typedef eosio::multi_index<"pdpools"_n, st_pdpool> _pdpools;
@@ -53,6 +51,7 @@ CONTRACT pokerrollcontract : public eosio::contract
 	_tb_nonces nonces;
 
 	ACTION forceclear(const name from);
+
 	ACTION pdreceipt(string game_id, const name player, string game, string seed, string bet_result,
 		string bet_cards, string bet_value, uint64_t betnum, uint64_t winnum, string token, string pub_key);
 
