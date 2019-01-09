@@ -106,8 +106,8 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 		//////////////////////////////need rewrite///////////////////////////////////////////////
 		uint32_t nonce = increment_nonce(from);
 
-		eosio_assert(t.amount >= 1000, "PokerDice: Below minimum bet threshold!");
-		eosio_assert(t.amount <= 200000, "PokerDice:Exceeds bet cap!");
+		//eosio_assert(t.amount >= 1000, "PokerDice: Below minimum bet threshold!");
+		//eosio_assert(t.amount <= 200000, "PokerDice:Exceeds bet cap!");
 
 
 		auto itr_pdpools = pokerdicepools.find(from.value);
