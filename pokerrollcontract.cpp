@@ -134,12 +134,21 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 	}
 }
 
+void pokerrollcontract::forceclear(const name from) {
+	//need to change name in formal launch
+	require_auth(name("mevpokerroll"));
+
+	auto itr = pokerdicepools.find(from);
+	if (itr != pokerdicepools.end()) {
+		pokerdicepools.erase(itr);
+	}
+}
 
 void pokerrollcontract::pdreceipt(string game_id, const name player, string game, string seed, string bet_result,
 	string bet_cards, string bet_value, uint64_t betnum, uint64_t winnum, string token, string pub_key) {
 	
-	
-	require_auth(name("eosvegasjack"));
+	//need to change name in formal launch
+	require_auth(name("mevpokerroll"));
 	require_recipient(player);
 
 	auto itr_pdpools = pokerdicepools.find(player.value);
@@ -236,7 +245,7 @@ extern "C" void apply(uint64_t receiver, uint64_t code, uint64_t action)
 	{
 		switch (action)
 		{
-			EOSIO_DISPATCH_HELPER(pokerrollcontract, (pdreceipt))
+			EOSIO_DISPATCH_HELPER(pokerrollcontract, (pdreceipt)(forceclear))
 		}
 	}
 }
