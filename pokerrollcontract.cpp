@@ -138,7 +138,7 @@ void pokerrollcontract::forceclear(const name from) {
 	//need to change name in formal launch
 	require_auth(name("mevpokerroll"));
 
-	auto itr = pokerdicepools.find(from);
+	auto itr = pokerdicepools.find(from.value);
 	if (itr != pokerdicepools.end()) {
 		pokerdicepools.erase(itr);
 	}

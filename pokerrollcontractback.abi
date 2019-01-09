@@ -1,0 +1,131 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Jan  8 17:28:28 2019",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "forceclear",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "pdreceipt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "game_id",
+                    "type": "string"
+                },
+                {
+                    "name": "player",
+                    "type": "name"
+                },
+                {
+                    "name": "game",
+                    "type": "string"
+                },
+                {
+                    "name": "seed",
+                    "type": "string"
+                },
+                {
+                    "name": "bet_result",
+                    "type": "string"
+                },
+                {
+                    "name": "bet_cards",
+                    "type": "string"
+                },
+                {
+                    "name": "bet_value",
+                    "type": "string"
+                },
+                {
+                    "name": "betnum",
+                    "type": "uint64"
+                },
+                {
+                    "name": "winnum",
+                    "type": "uint64"
+                },
+                {
+                    "name": "token",
+                    "type": "string"
+                },
+                {
+                    "name": "pub_key",
+                    "type": "string"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "forceclear",
+            "type": "forceclear",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "pdreceipt",
+            "type": "pdreceipt",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "st_pdpool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "betcurrency",
+                    "type": "string"
+                },
+                {
+                    "name": "nonce",
+                    "type": "uint32"
+                },
+                {
+                    "name": "totalbet",
+                    "type": "uint32"
+                },
+                {
+                    "name": "userseed",
+                    "type": "string"
+                },
+                {
+                    "name": "bet_cards",
+                    "type": "string"
+                },
+                {
+                    "name": "bet_value",
+                    "type": "string"
+                }
+            ]
+        }
+        {
+            "name": "st_nonces",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "number",
+                    "type": "uint32"
+                }
+            ]
+        }
+	],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
