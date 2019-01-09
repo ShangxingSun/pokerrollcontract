@@ -15,7 +15,7 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 	string bettoken = "EOS";
 	eosio_assert(_code == name("eosio.token"), "EOS should be sent by eosio.token");
 	eosio_assert(t.symbol == EOS_SYMBOL, "Incorrect token type.");
-	sanity_check(name("eosio.token").value, name("transfer"));
+//	sanity_check(name("eosio.token").value, name("transfer"));
 
 
 	eosio_assert(to == _self, "Transfer not made to this contract");
