@@ -112,6 +112,8 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 
 		auto itr_pdpools = pokerdicepools.find(from.value);
 
+		eosio_assert(0, "1");
+
 		eosio_assert(itr_pdpools == pokerdicepools.end(), "pokerdice: your last round is not finished. Please contact admin!");
 
 		//  	    name owner;
