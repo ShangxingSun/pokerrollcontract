@@ -19,7 +19,7 @@ using std::string;
 using namespace eosio;
 using namespace std;
 
-CONTRACT pokerrollcontract : public eosio::contract
+class [[eosio::contract]] pokerrollcontract : public eosio::contract
 {
 	public:
 	pokerrollcontract(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds),nonces(_self, _self.value), pokerdicepools(_self, _self.value) {}
@@ -50,9 +50,11 @@ CONTRACT pokerrollcontract : public eosio::contract
 	typedef multi_index<"nonces"_n, st_nonces> _tb_nonces;
 	_tb_nonces nonces;
 
-	ACTION forceclear(const name from);
+	[[eosio::action]]
+	void forceclear(const name from);
 
-	ACTION pdreceipt(string game_id, const name player, string game, string seed, string bet_result,
+	[[eosio::action]]
+	void pdreceipt(string game_id, const name player, string game, string seed, string bet_result,
 		string bet_cards, string bet_value, uint64_t betnum, uint64_t winnum, string token, string pub_key);
 
 	void transfer(
