@@ -22,7 +22,7 @@ using namespace std;
 class [[eosio::contract]] pokerrollcontract : public eosio::contract
 {
 	public:
-	pokerrollcontract(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds),nonces(_self, _self.value), pokerdicepools(_self, _self.value) {}
+	pokerrollcontract(name receiver, name code, datastream<const char *> ds) : contract(receiver, code, ds) {}
 
 	struct [[eosio::table]] st_pdpool
 	{
@@ -37,6 +37,8 @@ class [[eosio::contract]] pokerrollcontract : public eosio::contract
 		uint64_t primary_key() const { return owner.value; }
 	};
 
+	typedef eosio::multi_index<"pdpools"_n, st_pdpool> _pdpools;
+
 	struct [[eosio::table]] st_nonces{
 		name owner;
 		uint32_t number;
@@ -44,11 +46,8 @@ class [[eosio::contract]] pokerrollcontract : public eosio::contract
 		uint64_t primary_key() const { return owner.value; }
 	};
 
-	typedef eosio::multi_index<"pdpools1"_n, st_pdpool> _pdpools;
-	_pdpools pokerdicepools;
 
-	typedef multi_index<"nonces1"_n, st_nonces> _tb_nonces;
-	_tb_nonces nonces;
+	typedef eosio::multi_index<"nonces"_n, st_nonces> _tb_nonces;
 
 	[[eosio::action]]
 	void forceclear(name from);

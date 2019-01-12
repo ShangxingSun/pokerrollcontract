@@ -17,9 +17,8 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 	eosio_assert(t.symbol == EOS_SYMBOL, "Incorrect token type.");
 //	sanity_check(name("eosio.token").value, name("transfer"));
 
-	if(to!=_self){
-		return;
-	}
+
+	eosio_assert(to == _self, "Transfer not made to this contract");
 	eosio_assert(t.symbol.is_valid(), "Invalid token symbol");
 	eosio_assert(t.amount > 0, "Quantity must be positive");
 
@@ -40,7 +39,7 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 
 	string userseed = "";
 	uint32_t seedidx = usercomment.find("seed[");
-	if (seedidx >= 0 && seedidx != 4294967295)
+	if (seedidx > 0 && seedidx != 4294967295)
 	{
 		uint32_t pos = usercomment.find("]", seedidx);
 		if (pos > 0 && pos != 4294967295)
@@ -54,9 +53,8 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 	}else{
 		userseed = "-2";
 	}
+//1
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-//	const char *msg= userseed.c_str();
-//	eosio_assert(0,msg);	
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////unique section///////////////////////////////////////////////
 
@@ -92,33 +90,34 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 			uint32_t betcardpos = usercomment.find("]", betcardidx);
 			if (betcardpos > 0 && betcardpos != 4294967295)
 			{
-				 bet_cards = usercomment.substr(betcardidx + 10, betcardpos - betcardidx - 10);
+				string bet_cards = usercomment.substr(betcardidx + 10, betcardpos - betcardidx - 10);
 			}
 		}
-
 		uint32_t valueidx = usercomment.find("bet_value[");
 		if (valueidx > 0 && valueidx != 4294967295)
 		{
 			uint32_t valuepos = usercomment.find("]", valueidx);
 			if (valuepos > 0 && valuepos != 4294967295)
 			{
-				 bet_value = usercomment.substr(valueidx + 10, valuepos - valueidx - 10);
+				string bet_value = usercomment.substr(valueidx + 10, valuepos - valueidx - 10);
 			}
 		}
-		
-		eosio_assert(bet_cards!="","bet_cards cannot be empty");
-		eosio_assert(bet_value!="","bet_value cannot be empty");
-		eosio_assert(bet_cards.size()==bet_value.size(),"bet_cards and bet value should be equal length");
+		//2
 		//////////////////////////////need rewrite///////////////////////////////////////////////
 		uint32_t nonce = increment_nonce(from);
 
 		//eosio_assert(t.amount >= 1000, "PokerDice: Below minimum bet threshold!");
 		//eosio_assert(t.amount <= 200000, "PokerDice:Exceeds bet cap!");
 
-
+//3
+		
+	    _pdpools pokerdicepools(_code,_code.value);	
 		auto itr_pdpools = pokerdicepools.find(from.value);
 
-
+//
+//4
+//
+		eosio_assert(0, "4");
 		eosio_assert(itr_pdpools == pokerdicepools.end(), "pokerdice: your last round is not finished. Please contact admin!");
 
 		//  	    name owner;
@@ -142,27 +141,24 @@ void pokerrollcontract::transfer(name from, name to, asset t, string memo)
 }
 
 void pokerrollcontract::forceclear( name from) {
-	//need to change name in formal launchi
-//	print("this is from contract");
-	require_auth(name("yyhoho425aaa"));
+	//need to change name in formal launch
+	require_auth(name("mevpokerroll"));
 
+	_pdpools pokerdicepools(_code,_code.value);	
 	auto itr = pokerdicepools.find(from.value);
 	if (itr != pokerdicepools.end()) {
 		pokerdicepools.erase(itr);
 	}
-//	auto itr_stake = pokerdicepools.begin();
-//	while (itr_stake != pokerdicepools.end()) {
-//		itr_stake = pokerdicepools.erase(itr_stake);
-//	}
 }
 
 void pokerrollcontract::pdreceipt(string game_id, const name player, string game, string seed, string bet_result,
 	string bet_cards, string bet_value, uint64_t betnum, uint64_t winnum, string token, string pub_key) {
 	
 	//need to change name in formal launch
-	require_auth(name("yyhoho425aaa"));
+	require_auth(name("mevpokerroll"));
 	require_recipient(player);
-
+    
+	_pdpools pokerdicepools(_code,_code.value);	
 	auto itr_pdpools = pokerdicepools.find(player.value);
 
 	eosio_assert(itr_pdpools != pokerdicepools.end(), "PokerDice: user pool not found");
@@ -224,6 +220,7 @@ uint32_t pokerrollcontract::increment_nonce(name user)
 {
 	// Get current nonce and increment it
 	uint32_t nonce = 0;
+	_tb_nonces nonces(_code,_code.value);
 	auto itr_nonce = nonces.find(user.value);
 	if (itr_nonce != nonces.end())
 	{

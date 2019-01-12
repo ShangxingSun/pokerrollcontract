@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Jan  8 18:09:52 2019",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Jan 11 17:20:45 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -126,14 +126,14 @@
     ],
     "tables": [
         {
-            "name": "nonces",
+            "name": "nonces1",
             "type": "st_nonces",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "pdpools",
+            "name": "pdpools1",
             "type": "st_pdpool",
             "index_type": "i64",
             "key_names": [],
